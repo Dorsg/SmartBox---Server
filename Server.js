@@ -36,7 +36,7 @@ app.get('/signin', async (req, res) => {
 
         if (user) {
             const password = await collection.findOne({ password: req.body.password });
-            if (password){
+            if (password === req.body.password){
                 res.status(200).send("User credentials are valid");
             } else{
                 res.status(401).send("User password is not valid");
@@ -49,8 +49,8 @@ app.get('/signin', async (req, res) => {
         console.log(e);
     } finally {
         await client.close()
-    }
-});
+    // }
+}});
 
 app.post('/signup', async (req, res) => {
     const credentials = { email: req.body.email,
@@ -78,6 +78,58 @@ app.post('/signup', async (req, res) => {
         await client.close()
     }
 });
+
+app.post('/weightupdate', async (req, res) => {
+    const details = { box_id: req.body.box_id,
+                          box_state: req.body.box_state };
+
+    try{
+        await client.connect();
+        const database = client.db("smart_box");
+        const collection = database.collection("users");
+        const user = await collection.findOne({ box_id: req.body.box_id });
+
+        if (user) {
+            await collection.update(  { email: user.email} , { $set: { box_state : req.body.box_state  } });
+            res.status(200).send("User with box id: " + req.body.box_id + " has updated his weight with box state: "
+                                            + req.body.box_state);
+        } else{
+            res.status(401).send("User with box id: " + req.body.box_id + " is not in the system");
+        }
+    } catch (e){
+        console.log(e);
+    } finally {
+        await client.close()
+    }
+});
+
+app.post('/settingupdate', async (req, res) => {
+    const details = {
+        box_id: req.body.box_id,
+        box_state: req.body.box_state,
+        ebay_connection: req.body.ebay_connection,
+        box_baseline:  req.body.box_baseline};
+
+    try{
+        await client.connect();
+        const database = client.db("smart_box");
+        const collection = database.collection("users");
+        const user = await collection.findOne({ email: req.body.email });
+
+        if (user) {
+            console.log(user.email);
+            await collection.update(  { email: user.email} , { $set: details });
+            res.status(200).send("User with email: " + req.body.email + " has updated his setting details");
+        } else{
+            res.status(401).send("User with email: " + req.body.email + " is not in the system");
+        }
+    } catch (e){
+        console.log(e);
+    } finally {
+        await client.close()
+    }
+});
+
 
 app.listen(3000, ()=> {
     console.log('app is running on port 3000');
