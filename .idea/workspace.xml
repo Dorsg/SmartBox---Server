@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="update server">
+      <change afterPath="$PROJECT_DIR$/smart-box-mta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server.js" afterDir="false" />
     </list>
@@ -80,7 +81,7 @@
       <workItem from="1647080280033" duration="8140000" />
       <workItem from="1648657540549" duration="13536000" />
       <workItem from="1649609411910" duration="8917000" />
-      <workItem from="1650010448566" duration="5235000" />
+      <workItem from="1650010448566" duration="6580000" />
     </task>
     <task id="LOCAL-00001" summary="update server">
       <created>1647089207378</created>
