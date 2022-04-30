@@ -5,11 +5,13 @@ const cors = require('cors');
 const app = express();
 const uri = "mongodb+srv://smartBox:smartBox@cluster0.sgf80.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-
+//const MongoHandler = require('MongoHandler');
 app.use(cors());
 app.use(express.json());
 
 app.get('/', async (req, res)=> {
+
+
     try{
         await client.connect();
         const database = client.db("smart_box");
@@ -37,12 +39,15 @@ app.get('/signin', async (req, res) => {
         if (user) {
             const password = await collection.findOne({ password: req.body.password });
             if (password === req.body.password){
-                res.status(200).send("User credentials are valid");
+                res.json({message: "User credentials are valid"})
+                res.status(200).send();
             } else{
-                res.status(401).send("User password is not valid");
+                res.json({error: "User password is not valid"})
+                res.status(401).send();
             }
         } else{
-            res.status(404).send("User mail is not exists");
+            res.json({error: "User mail is not exists"})
+            res.status(404).send();
         }
 
     } catch (e){
@@ -132,5 +137,5 @@ app.post('/settingupdate', async (req, res) => {
 
 
 app.listen(process.env.PORT || 3000, ()=> {
-    console.log('app is running on port 3000');
+    console.log('SmartBox server is running');
 });
