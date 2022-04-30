@@ -37,8 +37,9 @@ app.get('/signin', async (req, res) => {
         const user = await collection.findOne({ email: req.body.email });
 
         if (user) {
-            const password = await collection.findOne({ password: req.body.password });
-            if (password === req.body.password){
+            //console.log(user)
+            //const password = await collection.findOne({ password: req.body.password });
+            if (user.password === req.body.password){
                 res.status(200).json({message: "User credentials are valid"});
             } else{
                 res.status(401).json({error: "User password is not valid"});
