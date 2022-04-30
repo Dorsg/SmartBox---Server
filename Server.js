@@ -39,15 +39,12 @@ app.get('/signin', async (req, res) => {
         if (user) {
             const password = await collection.findOne({ password: req.body.password });
             if (password === req.body.password){
-                res.json({message: "User credentials are valid"})
-                res.status(200).send();
+                res.status(200).json({message: "User credentials are valid"});
             } else{
-                res.json({error: "User password is not valid"})
-                res.status(401).send();
+                res.status(401).json({error: "User password is not valid"});
             }
         } else{
-            res.json({error: "User mail is not exists"})
-            res.status(404).send();
+            res.status(404).json({error: "User mail is not exists"});
         }
 
     } catch (e){
