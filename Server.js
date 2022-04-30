@@ -34,10 +34,10 @@ app.get('/signin', async (req, res) => {
         await client.connect();
         const database = client.db("smart_box");
         const collection = database.collection("users");  // get reference to the collection
-        const user = await collection.findOne({ email: req.body.email });
+        const user = await collection.findOne({ email: req.query.email });
 
         if (user) {
-            if (user.password === req.body.password){
+            if (user.password === req.query.password){
                 res.status(200).json({message: "User credentials are valid"});
             } else{
                 res.status(401).json({error: "User password is not valid"});
@@ -132,16 +132,19 @@ app.post('/settingupdate', async (req, res) => {
     }
 });
 
-app.post('/getinfo', async (req, res) => {
+app.get('/getinfo', async (req, res) => {
     try{
         await client.connect();
         const database = client.db("smart_box");
         const collection = database.collection("users");
-        const user = await collection.findOne({ email: req.body.email });
+        const user = await collection.findOne({ email: req.query.email });
 
         if (user) {
-            if (user.password === req.body.password){
-                res.status(200).json({message: "User credentials are valid"});
+            if (user.password === req.query.password){
+                res.status(200).json({box_id: user.box_id,
+                                                  ebay_connection: user.ebay_connection,
+                                                  box_state: user.box_state,
+                                                  box_baseline: user.box_baseline});
             } else{
                 res.status(401).json({error: "User password is not valid"});
             }
