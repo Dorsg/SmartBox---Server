@@ -37,8 +37,6 @@ app.get('/signin', async (req, res) => {
         const user = await collection.findOne({ email: req.body.email });
 
         if (user) {
-            //console.log(user)
-            //const password = await collection.findOne({ password: req.body.password });
             if (user.password === req.body.password){
                 res.status(200).json({message: "User credentials are valid"});
             } else{
@@ -66,13 +64,13 @@ app.post('/signup', async (req, res) => {
         const user = await collection.findOne({ email: req.body.email });
 
         if (user) {
-            res.status(401).send("User is already exist in the system");
+            res.status(401).json({error: "User is already exist in the system"});
         } else{
             const addedUser = await collection.insertOne(credentials);
             if(addedUser) {
-                res.status(200).send("User and password has been successfully added to the system");
+                res.status(200).json({message: "User and password has been successfully added to the system"});
             } else{
-                res.status(500).send("User credentials were OK but an error has occurred on the server");
+                res.status(500).json({error: "User credentials were OK but an error has occurred on the server"});
             }
         }
     } catch (e){
@@ -94,10 +92,11 @@ app.post('/weightupdate', async (req, res) => {
 
         if (user) {
             await collection.update(  { email: user.email} , { $set: { box_state : req.body.box_state  } });
-            res.status(200).send("User with box id: " + req.body.box_id + " has updated his weight with box state: "
-                                            + req.body.box_state);
+            res.status(200).json({message: "User with box id: " + req.body.box_id
+                                                     + " has updated his weight with box state: "
+                                                     + req.body.box_state});
         } else{
-            res.status(401).send("User with box id: " + req.body.box_id + " is not in the system");
+            res.status(401).json({error: "User with box id: " + req.body.box_id + " is not in the system"});
         }
     } catch (e){
         console.log(e);
@@ -122,10 +121,34 @@ app.post('/settingupdate', async (req, res) => {
         if (user) {
             console.log(user.email);
             await collection.update(  { email: user.email} , { $set: details });
-            res.status(200).send("User with email: " + req.body.email + " has updated his setting details");
+            res.status(200).json({message: "User with email: " + req.body.email + " has updated his setting details"});
         } else{
-            res.status(401).send("User with email: " + req.body.email + " is not in the system");
+            res.status(401).json({error: "User with email: " + req.body.email + " is not in the system"});
         }
+    } catch (e){
+        console.log(e);
+    } finally {
+        await client.close()
+    }
+});
+
+app.post('/getinfo', async (req, res) => {
+    try{
+        await client.connect();
+        const database = client.db("smart_box");
+        const collection = database.collection("users");
+        const user = await collection.findOne({ email: req.body.email });
+
+        if (user) {
+            if (user.password === req.body.password){
+                res.status(200).json({message: "User credentials are valid"});
+            } else{
+                res.status(401).json({error: "User password is not valid"});
+            }
+        } else{
+            res.status(404).json({error: "User mail is not exists"});
+        }
+
     } catch (e){
         console.log(e);
     } finally {
