@@ -1,0 +1,7 @@
+
+{
+  "uri" : "mongodb+srv://smartBox:smartBox@cluster0.sgf80.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+   "collection" : "users",
+  "db":"smart_box",
+  "port_app": 3000
+}

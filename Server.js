@@ -1,4 +1,3 @@
-//TODO: 1. create constants file
 //TODO: 2. all routing to controllers
 //TODO: 3. create database accessor
 //TODO: 4. create email accessor
@@ -6,27 +5,26 @@
 //TODO: 6. create function to extract ASIN ID from text
 //TODO: 7. create function to generate amazon cart link by ASIN ID
 //TODO: 8. find free email service to send emails with amazon cart link
-
-
-
-
+var config = require('config')
 const express = require('express')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+
+
 const app = express();
-const uri = "mongodb+srv://smartBox:smartBox@cluster0.sgf80.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+
+const client = new MongoClient(config.uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 //const MongoHandler = require('MongoHandler');
 app.use(cors());
 app.use(express.json());
+
+
 app.get('/', async (req, res)=> {
-
-
     try{
         await client.connect();
-        const database = client.db("smart_box");
-        const collection = database.collection("users");
+        const database = client.db(config.db);
+        const collection = database.collection(config.collection);
         const projection = { projection: { _id: 0, email: 1} };
 
         const users = await collection.find({}, projection).toArray();
@@ -43,8 +41,8 @@ app.get('/', async (req, res)=> {
 app.get('/signin', async (req, res) => {
     try{
         await client.connect();
-        const database = client.db("smart_box");
-        const collection = database.collection("users");  // get reference to the collection
+        const database = client.db(config.db);
+        const collection = database.collection(config.collection);  // get reference to the collection
         const user = await collection.findOne({ email: req.query.email });
 
         if (user) {
@@ -70,8 +68,8 @@ app.post('/signup', async (req, res) => {
 
     try{
         await client.connect();
-        const database = client.db("smart_box");
-        const collection = database.collection("users");  // get reference to the collection
+        const database = client.db(config.db);
+        const collection = database.collection(config.collection);  // get reference to the collection
         const user = await collection.findOne({ email: req.body.email });
 
         if (user) {
@@ -97,8 +95,8 @@ app.post('/weightupdate', async (req, res) => {
 
     try{
         await client.connect();
-        const database = client.db("smart_box");
-        const collection = database.collection("users");
+        const database = client.db(config.db);
+        const collection = database.collection(config.collection);
         const user = await collection.findOne({ box_id: req.body.box_id });
 
         if (user) {
@@ -125,8 +123,8 @@ app.post('/settingupdate', async (req, res) => {
 
     try{
         await client.connect();
-        const database = client.db("smart_box");
-        const collection = database.collection("users");
+        const database = client.db(config.db);
+        const collection = database.collection(config.collection);
         const user = await collection.findOne({ email: req.body.email });
 
         if (user) {
@@ -146,8 +144,8 @@ app.post('/settingupdate', async (req, res) => {
 app.get('/getinfo', async (req, res) => {
     try{
         await client.connect();
-        const database = client.db("smart_box");
-        const collection = database.collection("users");
+        const database = client.db(config.db);
+        const collection = database.collection(config.collection);
         const user = await collection.findOne({ email: req.query.email });
 
         if (user) {
@@ -171,6 +169,6 @@ app.get('/getinfo', async (req, res) => {
 });
 
 
-app.listen(process.env.PORT || 3000, ()=> {
+app.listen(process.env.PORT || config.port_app, ()=> {
     console.log('SmartBox server is running');
 });
