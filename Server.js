@@ -17,8 +17,8 @@ const express = require('express')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-var mandrill = require('node-mandrill')('c27c8bcdcb98e46fd74a93069a143ca0-us12');
-
+const sgMail = require('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const app = express();
 
 const client = new MongoClient(config.uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
@@ -135,17 +135,18 @@ async function handleNotification(box_id, database) {
         let user = await collection_users.findOne({ box_id: box_id });
 
         if (user) {
-            mandrill('/messages/send', {
-                message: {
-                    to: [{email: user.email, name: 'Dear user'}],
-                    from_email: 'smart_box@gmail.com',
-                    subject: "Hey, looks like you product is run out",
-                    text: `Please click the amazon link and your product will be added to cart\n${user.amazon_link}`
-                }
-            }, function(error, response) {
-                if (error) console.log( JSON.stringify(error) );
-                else console.log(response);
-            });
+            const msg = {
+                to: user.email, // Change to your recipient
+                from: 'smartBox@Smart.com', // Change to your verified sender
+                subject: 'Sending with SendGrid is Fun',
+                text: 'and easy to do anywhere, even with Node.js',
+                html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+            }
+
+            await sgMail.send(msg)
+            console.log('Email sent')
+
+
 
         }
     } catch (e){
