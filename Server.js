@@ -1,3 +1,15 @@
+//TODO: 1. create constants file
+//TODO: 2. all routing to controllers
+//TODO: 3. create database accessor
+//TODO: 4. create email accessor
+//TODO: 5. remove unnecessary fields in user data base
+//TODO: 6. create function to extract ASIN ID from text
+//TODO: 7. create function to generate amazon cart link by ASIN ID
+//TODO: 8. find free email service to send emails with amazon cart link
+
+
+
+
 const express = require('express')
 const { MongoClient, ServerApiVersion } = require('mongodb');
 const bodyParser = require('body-parser');
@@ -8,7 +20,6 @@ const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology:
 //const MongoHandler = require('MongoHandler');
 app.use(cors());
 app.use(express.json());
-
 app.get('/', async (req, res)=> {
 
 
