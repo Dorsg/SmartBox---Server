@@ -14,7 +14,7 @@ const cors = require('cors');
 const app = express();
 
 const client = new MongoClient(config.uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-//const MongoHandler = require('MongoHandler');
+
 app.use(cors());
 app.use(express.json());
 
