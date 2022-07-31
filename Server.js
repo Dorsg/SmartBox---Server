@@ -220,15 +220,16 @@ async function handleNotification(box_id) {
                 secure: true,
                 auth: {
                     user: 'SmartBoxCustomerService@gmail.com',
-                    pass: 'SmartBoxAAD123'
+                    pass: 'eael ddse uvjv jeny'
                 }
             });
             let mailOptions = {
                 from: '"Smart Box" <xx@gmail.com>', // sender address
                 to: user.email, // list of receivers
                 subject: 'add to cart', // Subject line
-                text: user.amazon_link, // plain text body
-                html: '<b>NodeJS Email Tutorial</b>' // html body
+                html: user.amazon_link // html body
+
+
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
