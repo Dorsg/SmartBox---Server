@@ -5,26 +5,34 @@
 //TODO: 6. create function to extract ASIN ID from text
 //TODO: 7. create function to generate amazon cart link by ASIN ID
 //TODO: 8. find free email service to send emails with amazon cart link
-
-
 //TODO: 9. handle response in weight update
 //TODO: 10. make sure email is sent
 //TODO: 11. deploy and check sign in sign up
+//TODO: 12. set a needToOrder flag in users
 
-
-var config = require('./config.json')
+const path = require('path')
+const nodeMailer = require('nodemailer');
+const bodyParser = require('body-parser');
+const config = require('./config.json')
 const express = require('express')
 const { MongoClient, ServerApiVersion } = require('mongodb');
-const bodyParser = require('body-parser');
 const cors = require('cors');
 const sgMail = require('@sendgrid/mail')
-sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 const app = express();
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 const client = new MongoClient(config.uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 app.use(cors());
 app.use(express.json());
+app.set('view engine', 'ejs');
+app.use(express.static('public'));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 
 
 app.get('/', async (req, res)=> {
@@ -94,66 +102,6 @@ app.post('/signup', async (req, res) => {
     }
 });
 
-app.post('/weightupdate', async (req, res) => {
-    const details = { box_id: req.body.box_id,
-                          current_weight: req.body.current_weight };
-    let box;
-    try{
-        await client.connect();
-        let database = client.db(config.db);
-        let collection_boxes = database.collection(config.collection_boxes);
-        box = await collection_boxes.findOne({ box_id: req.body.box_id });
-
-        if (box) { // box id exist in system
-            await collection_boxes.update(  { box_id: req.body.box_id} , { $set: { current_weight : req.body.current_weight }});
-
-           res.status(200).json({message: "User with box id: " + req.body.box_id
-                                                     + " has updated his weight with box state: "
-                                                     + req.body.box_current_weight});
-
-
-        } else {
-            res.status(401).json({error: "User with box id: " + req.body.box_id + " is not in the system"});
-        }
-    } catch (e){
-        console.log(e);
-    } finally {
-        await client.close()
-    }
-
-    if (req.body.current_weight < (box.max_weight * (box.baseline / 100) )) {
-        handleNotification(box.box_id);
-    }
-});
-
-async function handleNotification(box_id, database) {
-
-    try{
-        await client.connect();
-        let database = client.db(config.db);
-        let collection_users = database.collection(config.collection_users);
-        let user = await collection_users.findOne({ box_id: box_id });
-
-        if (user) {
-            const msg = {
-                to: user.email, // Change to your recipient
-                from: 'smartBox@Smart.com', // Change to your verified sender
-                subject: 'Sending with SendGrid is Fun',
-                text: 'and easy to do anywhere, even with Node.js',
-                html: '<strong>and easy to do anywhere, even with Node.js</strong>',
-            }
-
-            await sgMail.send(msg)
-            console.log('Email sent')
-
-
-
-        }
-    } catch (e){
-        console.log(e);
-
-}}
-
 app.post('/settingupdate', async (req, res) => {
     var amazon_asin = req.body.amazon_link.substring(
         req.body.amazon_link.indexOf("dp/") + 3,
@@ -181,7 +129,7 @@ app.post('/settingupdate', async (req, res) => {
         const boxes_collection = database.collection(config.collection_boxes);
 
         if (user) {
-            await user_collection.update(  { email: user.email} , { $set: update_users });
+            await user_collection.updateOne(  { email: user.email} , { $set: update_users });
             await boxes_collection.insertOne(update_boxes);
             res.status(200).json({message: "User with email: " + req.body.email + " has updated his setting details"});
         } else{
@@ -208,10 +156,10 @@ app.get('/getinfo', async (req, res) => {
                 const box = await collection_boxes.findOne({ box_id: user.box_id });
 
                 res.status(200).json({ box_id: user.box_id,
-                                                   amazon_link: user.amazon_link,
-                                                   baseline: box.baseline,
-                                                   current_weight: box.current_weight,
-                                                   max_weight: box.max_weight });
+                    amazon_link: user.amazon_link,
+                    baseline: box.baseline,
+                    current_weight: box.current_weight,
+                    max_weight: box.max_weight });
             } else{
                 res.status(401).json({error: "User password is not valid"});
             }
@@ -226,6 +174,82 @@ app.get('/getinfo', async (req, res) => {
     }
 });
 
+app.post('/weightupdate', async (req, res) => {
+    const details = { current_weight: req.body.current_weight };
+    let box;
+    try{
+        await client.connect();
+        let database = client.db(config.db);
+        let collection_boxes = database.collection(config.collection_boxes);
+        box = await collection_boxes.findOne({ box_id: req.body.box_id });
+
+        if (box) { // box id exist in system
+            await collection_boxes.updateOne(  { box_id: req.body.box_id} , { $set: details});
+
+           res.status(200).json({message: "User with box id: " + req.body.box_id
+                                                     + " has updated his weight with box state: "
+                                                     + req.body.box_current_weight});
+
+        } else {
+            res.status(401).json({error: "User with box id: " + req.body.box_id + " is not in the system"});
+        }
+    } catch (e){
+        console.log(e);
+    } finally {
+        await client.close()
+    }
+
+    if (req.body.current_weight < (box.max_weight * (box.baseline / 100) )) {
+        handleNotification(box.box_id);
+    }
+
+});
+
+async function handleNotification(box_id) {
+
+    try{
+        await client.connect();
+        let database = client.db(config.db);
+        let collection_users = database.collection(config.collection_users);
+        let user = await collection_users.findOne({ box_id: box_id });
+
+        if (user) {
+            let transporter = nodeMailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 465,
+                secure: true,
+                auth: {
+                    user: 'SmartBoxCustomerService@gmail.com',
+                    pass: 'SmartBoxAAD123'
+                }
+            });
+            let mailOptions = {
+                from: '"Smart Box" <xx@gmail.com>', // sender address
+                to: user.email, // list of receivers
+                subject: 'add to cart', // Subject line
+                text: user.amazon_link, // plain text body
+                html: '<b>NodeJS Email Tutorial</b>' // html body
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    return console.log(error);
+                }
+                console.log('Message %s sent: %s', info.messageId, info.response);
+                res.render('index');
+            });
+
+        }
+    } catch (e){
+        console.log(e);
+
+}}
+
 app.listen(process.env.PORT || config.port_app, ()=> {
     console.log('SmartBox server is running');
 });
+
+
+
+
+
