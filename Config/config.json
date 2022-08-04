@@ -1,0 +1,10 @@
+
+{
+  "uri": "mongodb+srv://smartBox:smartBox@cluster0.sgf80.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+  "collection_users": "users",
+  "collection_boxes": "boxes",
+  "db":"smart_box",
+  "port_app": 3000,
+  "smart_box_mail": "SmartBoxCustomerService@gmail.com",
+  "smart_box_mail_password": "eael ddse uvjv jeny"
+}

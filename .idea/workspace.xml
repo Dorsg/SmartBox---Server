@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="mailchimp" />
+    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="mailchimp">
+      <change afterPath="$PROJECT_DIR$/Controller/smartBoxRoute.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Services/mailService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MongoHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.json" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -18,6 +25,7 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Controller/smartBoxRoute.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Server.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -53,6 +61,9 @@
       <recent name="$PROJECT_DIR$" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Services" />
+      <recent name="$PROJECT_DIR$/Config" />
+      <recent name="$PROJECT_DIR$/DBAccessor" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
@@ -87,7 +98,7 @@
       <workItem from="1649609411910" duration="8917000" />
       <workItem from="1650010448566" duration="18520000" />
       <workItem from="1651339590197" duration="4804000" />
-      <workItem from="1659285737612" duration="6002000" />
+      <workItem from="1659285737612" duration="25644000" />
     </task>
     <task id="LOCAL-00001" summary="update server">
       <created>1647089207378</created>
