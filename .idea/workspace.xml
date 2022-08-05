@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="mailchimp">
-      <change afterPath="$PROJECT_DIR$/Controller/smartBoxRoute.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Services/mailService.js" afterDir="false" />
+    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="updated project">
+      <change afterPath="$PROJECT_DIR$/Services/amazonService.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MongoHandler.js" beforeDir="false" afterPath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/smartBoxRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/smartBoxRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" beforeDir="false" afterPath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/mailService.js" beforeDir="false" afterPath="$PROJECT_DIR$/Services/mailService.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,7 +98,7 @@
       <workItem from="1649609411910" duration="8917000" />
       <workItem from="1650010448566" duration="18520000" />
       <workItem from="1651339590197" duration="4804000" />
-      <workItem from="1659285737612" duration="25644000" />
+      <workItem from="1659285737612" duration="35566000" />
     </task>
     <task id="LOCAL-00001" summary="update server">
       <created>1647089207378</created>
@@ -163,7 +163,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659292875817</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="updated project">
+      <created>1659629818801</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1659629818801</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -187,7 +194,20 @@
     <MESSAGE value="structure" />
     <MESSAGE value="make it better" />
     <MESSAGE value="mailchimp" />
-    <option name="LAST_COMMIT_MESSAGE" value="mailchimp" />
+    <MESSAGE value="updated project" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated project" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Controller/smartBoxRoute.js</url>
+          <line>113</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="40" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
