@@ -1,24 +1,25 @@
 const config = require("../Config/config.json");
-const sendgrid = require('@sendgrid/mail');
-const SENDGRID_API_KEY = "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";
-sendgrid.setApiKey(SENDGRID_API_KEY)
+const nodeMailer = require("nodemailer");
+const sgMail = require("@sendgrid/mail");
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 async function sendAddToCartMail(amazonLink, emailAddress) {
     try {
-        const msg = {
-            to: emailAddress,
-            from: config.smart_box_mail,
-            subject: config.mail_subject,
-            html: amazonLink
-        }
-        sendgrid
-            .send(msg)
-            .then((resp) => {
-                console.log('Email sent\n', resp)
-            })
-            .catch((error) => {
-                console.error(error)
-            })
+        let transporter = nodeMailer.createTransport({
+            host: 'smtp.gmail.com', port: 465, secure: true, auth: {
+                user: config.smart_box_mail, pass: config.smart_box_mail_password
+            }
+        });
+        let mailOptions = {
+            from: 'Smart Box', to: emailAddress, subject: 'add to cart', html: amazonLink
+
+        };
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                return console.log(error);
+            }
+            console.log('Message %s sent: %s', info.messageId, info.response);
+        });
     } catch (e) {
         console.log(e);
     }

@@ -1,6 +1,6 @@
+const config = require("../Config/config.json");
 const DBAccessor = require('../DBAccessor/MongoAccessor');
 const mailService = require('../Services/mailService')
-const amazonService = require('../Services/amazonService')
 
 async function rootFunction(req, res) {
     res.status(200).json({message: "SmartBox is running :)"});
@@ -104,36 +104,44 @@ async function handleNotification(box_id) {
         }
     } catch (e) {
         console.log(e);
+
     }
 }
 
+
 async function updateSettings(req, res) {
+    let amazon_asin = req.body.amazon_link.substring(req.body.amazon_link.indexOf("dp/") + 3, req.body.amazon_link.lastIndexOf("?"));
+    let amazon_link = `https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=${amazon_asin}&Quantity.1=1`
+
+    const update_users = {
+        box_id: req.body.box_id, amazon_link: amazon_link,
+    };
+
+    const update_boxes = {
+        box_id: req.body.box_id,
+        current_weight: req.body.current_weight,
+        max_weight: req.body.current_weight,
+        baseline: req.body.baseline,
+    };
+
     try {
-        // update user with amazon link
-        let amazonAddToCartLink = amazonService.createAddToCartLink(req.body.amazon_link);
-        const toUpdateUser = {
-            box_id: req.body.box_id,
-            amazon_link: amazonAddToCartLink
-        };
-        const userUpdateStatus = await DBAccessor.updateUserByEmail(toUpdateUser, req.body.email)
+        await client.connect();
+        const database = client.db(config.db);
+        const user_collection = database.collection(config.collection_users);
+        const user = await user_collection.findOne({email: req.body.email});
+        const boxes_collection = database.collection(config.collection_boxes);
 
-        // update box with all properties
-        const boxToInsert = {
-            box_id: req.body.box_id,
-            current_weight: req.body.current_weight,
-            max_weight: req.body.current_weight,
-            baseline: req.body.baseline,
-        };
-        const insertBoxStatus = await DBAccessor.insertBox(boxToInsert);
-
-        // check status
-        if (userUpdateStatus === 200 && insertBoxStatus === 200)
+        if (user) {
+            await user_collection.updateOne({email: user.email}, {$set: update_users});
+            await boxes_collection.insertOne(update_boxes);
             res.status(200).json({message: "User with email: " + req.body.email + " has updated his setting details"});
-        else
-            res.status(401).json({error: "User with email: " + req.body.email + " did not updated (or partly) setting from some reason"});
-
+        } else {
+            res.status(401).json({error: "User with email: " + req.body.email + " is not in the system"});
+        }
     } catch (e) {
         console.log(e);
+    } finally {
+        await client.close()
     }
 }
 
