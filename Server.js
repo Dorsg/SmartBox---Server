@@ -1,8 +1,7 @@
-// TODO: make update setting with DB accessor
-// TODO: move all config paramters to config file
-// TODO: split config file
 // TODO: design html in mail
-// TODO: understand routes and controllers
+// TODO: understand routes and controllers and managers/services
+// TODO: add logger to all project
+// TODO: fix add to cart link
 
 const bodyParser = require('body-parser');
 const config = require('./Config/config.json');
