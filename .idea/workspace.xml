@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="mailchimp">
-      <change afterPath="$PROJECT_DIR$/smart-box-com" afterDir="false" />
+    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="string to in change in update setting method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Controller/smartBoxRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/smartBoxRoute.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" beforeDir="false" afterPath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" afterDir="false" />
     </list>
     <list id="acc378e2-181d-4670-95f2-8d449b8e7fd9" name="not to commit" comment="">
       <change beforePath="$PROJECT_DIR$/Config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.json" afterDir="false" />
@@ -164,7 +161,14 @@
       <option name="project" value="LOCAL" />
       <updated>1659292875817</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="string to in change in update setting method">
+      <created>1662114705429</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1662114705429</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +203,8 @@
     <MESSAGE value="structure" />
     <MESSAGE value="make it better" />
     <MESSAGE value="mailchimp" />
-    <option name="LAST_COMMIT_MESSAGE" value="mailchimp" />
+    <MESSAGE value="string to in change in update setting method" />
+    <option name="LAST_COMMIT_MESSAGE" value="string to in change in update setting method" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
