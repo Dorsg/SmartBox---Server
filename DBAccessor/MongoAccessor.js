@@ -71,6 +71,26 @@ async function insertUser(credentials) {
     }
 }
 
+async function updateAmazonLinkAndInsertBox(update_users, box, email) {
+    try {
+        let client = await mongoConnect();
+        const database = client.db(config.db);
+        const user_collection = database.collection(config.collection_users);
+        const user = await user_collection.findOne({email: email});
+        const boxes_collection = database.collection(config.collection_boxes);
+
+        if (user) {
+            await user_collection.updateOne({email: user.email}, {$set: update_users});
+            await boxes_collection.insertOne(box);
+            return 200;
+        } else {
+            return 401;
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
+
 async function getInfoOnUser(credentials) {
     try {
         let client = await mongoConnect();
@@ -144,5 +164,5 @@ async function getUserById(id) {
 }
 
 module.exports = {
-    checkCred, insertUser, getInfoOnUser, updateWeight, getBoxById, getUserById
+    checkCred, insertUser, getInfoOnUser, updateWeight, getBoxById, getUserById, updateAmazonLinkAndInsertBox
 }

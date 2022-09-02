@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="mailchimp">
+      <change afterPath="$PROJECT_DIR$/smart-box-com" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Server.js" beforeDir="false" afterPath="$PROJECT_DIR$/Server.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/mailService.js" beforeDir="false" afterPath="$PROJECT_DIR$/Services/mailService.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/smartBoxRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/smartBoxRoute.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" beforeDir="false" afterPath="$PROJECT_DIR$/DBAccessor/MongoAccessor.js" afterDir="false" />
     </list>
     <list id="acc378e2-181d-4670-95f2-8d449b8e7fd9" name="not to commit" comment="">
       <change beforePath="$PROJECT_DIR$/Config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.json" afterDir="false" />
@@ -168,6 +169,17 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">

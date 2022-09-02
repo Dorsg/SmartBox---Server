@@ -8,7 +8,8 @@ async function rootFunction(req, res) {
 
 async function signIn(req, res) {
     const credentials = {
-        email: req.query.email, password: req.query.password
+        email: req.query.email,
+        password: req.query.password
     };
     try {
         const status = await DBAccessor.checkCred(credentials);
@@ -30,7 +31,8 @@ async function signIn(req, res) {
 
 async function signUp(req, res) {
     const credentials = {
-        email: req.body.email, password: req.body.password
+        email: req.body.email,
+        password: req.body.password
     };
 
     try {
@@ -114,7 +116,8 @@ async function updateSettings(req, res) {
     let amazon_link = `https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=${amazon_asin}&Quantity.1=1`
 
     const update_users = {
-        box_id: req.body.box_id, amazon_link: amazon_link,
+        box_id: req.body.box_id,
+        amazon_link: amazon_link,
     };
 
     const update_boxes = {
@@ -125,23 +128,17 @@ async function updateSettings(req, res) {
     };
 
     try {
-        await client.connect();
-        const database = client.db(config.db);
-        const user_collection = database.collection(config.collection_users);
-        const user = await user_collection.findOne({email: req.body.email});
-        const boxes_collection = database.collection(config.collection_boxes);
-
-        if (user) {
-            await user_collection.updateOne({email: user.email}, {$set: update_users});
-            await boxes_collection.insertOne(update_boxes);
-            res.status(200).json({message: "User with email: " + req.body.email + " has updated his setting details"});
-        } else {
-            res.status(401).json({error: "User with email: " + req.body.email + " is not in the system"});
+        const status = await DBAccessor.updateAmazonLinkAndInsertBox(update_users, update_boxes, req.body.email);
+        switch (status) {
+            case 200:
+                res.status(200).json({message: "User with email: " + req.body.email + " has updated his setting details"});
+                break;
+            default:
+                res.status(401).json({error: "User with email: " + req.body.email + " is not in the system"});
+                break;
         }
     } catch (e) {
         console.log(e);
-    } finally {
-        await client.close()
     }
 }
 
