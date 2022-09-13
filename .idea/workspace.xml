@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="string to in change in update setting method">
+    <list default="true" id="b9fd0c45-3131-4129-b62f-c4dc00f2333b" name="Changes" comment="workspace change">
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Controller/smartBoxRoute.js" beforeDir="false" afterPath="$PROJECT_DIR$/Controller/smartBoxRoute.js" afterDir="false" />
     </list>
-    <list id="acc378e2-181d-4670-95f2-8d449b8e7fd9" name="not to commit" comment="">
+    <list id="acc378e2-181d-4670-95f2-8d449b8e7fd9" name="not to commit" comment="not to commit">
       <change beforePath="$PROJECT_DIR$/Config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/Config/config.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -168,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1662114705429</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="workspace change">
+      <created>1662116925618</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1662116925618</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,7 +213,20 @@
     <MESSAGE value="make it better" />
     <MESSAGE value="mailchimp" />
     <MESSAGE value="string to in change in update setting method" />
-    <option name="LAST_COMMIT_MESSAGE" value="string to in change in update setting method" />
+    <MESSAGE value="workspace change" />
+    <option name="LAST_COMMIT_MESSAGE" value="workspace change" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/Controller/smartBoxRoute.js</url>
+          <line>115</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="61" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

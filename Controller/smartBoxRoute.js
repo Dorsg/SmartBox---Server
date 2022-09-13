@@ -112,7 +112,7 @@ async function handleNotification(box_id) {
 
 
 async function updateSettings(req, res) {
-    let amazon_asin = req.body.amazon_link.substring(req.body.amazon_link.indexOf("dp/") + 3, req.body.amazon_link.lastIndexOf("?"));
+    let amazon_asin = req.body.amazon_link.substring(req.body.amazon_link.indexOf("dp/") + 3, req.body.amazon_link.lastIndexOf("/ref"));
     let amazon_link = `https://www.amazon.com/gp/aws/cart/add.html?ASIN.1=${amazon_asin}&Quantity.1=1`
 
     const update_users = {
